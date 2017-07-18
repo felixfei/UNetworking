@@ -46,10 +46,10 @@ namespace UnityEngine.Networking
             m_Pos += count;
         }
 
-        //interface ArraySegment<byte> AsArraySegment()
-        //{
-        //    return new ArraySegment<byte>(m_Buffer, 0, (int)m_Pos);
-        //}
+        internal ArraySegment<byte> AsArraySegment()
+        {
+            return new ArraySegment<byte>(m_Buffer, 0, (int)m_Pos);
+        }
 
         public void WriteByte(byte value)
         {
@@ -148,12 +148,12 @@ namespace UnityEngine.Networking
             m_Buffer = tmp;
         }
 
-        //public void FinishMessage()
-        //{
-        //    ushort sz = (ushort)(m_Pos - (sizeof(ushort) * 2));
-        //    m_Buffer[0] = (byte)(sz & 0xff);
-        //    m_Buffer[1] = (byte)((sz >> 8) & 0xff);
-        //}
+        public void FinishMessage()
+        {
+            ushort sz = (ushort)(m_Pos - (sizeof(ushort) * 2));
+            m_Buffer[0] = (byte)(sz & 0xff);
+            m_Buffer[1] = (byte)((sz >> 8) & 0xff);
+        }
 
         public void SeekZero()
         {
